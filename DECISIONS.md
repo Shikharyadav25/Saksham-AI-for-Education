@@ -44,3 +44,15 @@
 - **Context:** Raw response times confound item complexity with student speed ("Slow $\neq$ Weak").
 - **Decision:** Adopt van der Linden's hierarchical response time framework ($\log T_{ij} \sim \mathcal{N}(\lambda_j - \tau_i, \sigma^2)$) to normalize latency against question difficulty intensity.
 - **Status:** Approved.
+
+## ADR 010: Dynamic Multi-User Profile Persistence and Demo Decoupling
+- **Context:** Hardcoded demo presets prevent real-world multi-user assessment and manual profiling with demographic metadata.
+- **Decision:** Decouple the frontend from static presets, retaining only `Alice (Demo Profile)` for baseline comparison. Store user profiles dynamically in the SQLite `learners` table with schema support for `age` and `gender`. Enable repeated profile creation with instant session initialization, cascading history retrieval, and profile lifecycle management.
+- **Status:** Approved.
+
+## ADR 011: User-Controlled Deliberation Timer for High-Precision Latency Telemetry
+- **Context:** Automatic page-load timestamps confound idle browser reading time or user distraction with actual mathematical deliberation, degrading the accuracy of EZ-diffusion ($a, v, T_{er}$) and hierarchical speed ($\tau$) modeling.
+- **Decision:** Implement an explicit user-controlled timer button (`▶️ Turn On Timer`) that gates submission. The clock starts only when the user is actively ready to deliberate and solve, and stops automatically upon answer submission. Accurate elapsed latency is computed with millisecond resolution and persisted to SQLite.
+- **Status:** Approved.
+
+

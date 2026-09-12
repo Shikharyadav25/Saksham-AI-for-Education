@@ -197,6 +197,12 @@ if "last_feedback" not in st.session_state:
     st.session_state["last_feedback"] = None
 if "hint_requested" not in st.session_state:
     st.session_state["hint_requested"] = False
+if "timer_running" not in st.session_state:
+    st.session_state["timer_running"] = False
+if "timer_start_time" not in st.session_state:
+    st.session_state["timer_start_time"] = None
+if "timer_last_recorded" not in st.session_state:
+    st.session_state["timer_last_recorded"] = None
 
 current_learner = get_learner(st.session_state["learner_id"])
 
@@ -386,6 +392,52 @@ with tab_study:
             unsafe_allow_html=True,
         )
 
+        # Timer Control Bar
+        timer_is_active = st.session_state.get("timer_running", False)
+
+        t_col_status, t_col_btn = st.columns([7, 3])
+        with t_col_status:
+            if timer_is_active:
+                st.markdown(
+                    """
+                    <div style="background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 20px;">⏱️</span>
+                        <div>
+                            <div style="font-weight: 700; color: #065F46; font-size: 13px;">TIMER RUNNING • DELIBERATION ACTIVE</div>
+                            <div style="font-size: 12px; color: #047857;">Clock is actively counting. Solve the problem and submit below to stop the timer.</div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    """
+                    <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 20px;">⏸️</span>
+                        <div>
+                            <div style="font-weight: 700; color: #475569; font-size: 13px;">TIMER STOPPED / NOT STARTED</div>
+                            <div style="font-size: 12px; color: #64748B;">Press <b>Turn On Timer</b> when ready to begin solving for accurate latency tracking.</div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+        with t_col_btn:
+            if not timer_is_active:
+                if st.button("▶️ Turn On Timer", type="primary", use_container_width=True, help="Starts measuring deliberation latency for this question"):
+                    st.session_state["timer_running"] = True
+                    st.session_state["timer_start_time"] = time.time()
+                    st.rerun()
+            else:
+                if st.button("⏹️ Reset Timer", type="secondary", use_container_width=True, help="Reset timer if you were interrupted"):
+                    st.session_state["timer_running"] = False
+                    st.session_state["timer_start_time"] = None
+                    st.rerun()
+
+        st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+
         # Options Form
         with st.form("study_answer_form"):
             user_choice = st.radio(
@@ -407,13 +459,30 @@ with tab_study:
 
             with col_btn:
                 st.write("")
-                submit_btn = st.form_submit_button("Submit Answer", type="primary", use_container_width=True)
+                submit_label = "Submit Answer & Stop Timer" if timer_is_active else "Submit Answer (Timer Required)"
+                submit_btn = st.form_submit_button(
+                    submit_label,
+                    type="primary",
+                    disabled=not timer_is_active,
+                    use_container_width=True,
+                    help="Submits choice and stops the active timer" if timer_is_active else "Please turn on timer above to begin solving",
+                )
 
-        if submit_btn:
-            elapsed_rt = max(1.0, time.time() - st.session_state["question_start_time"])
+        if not timer_is_active:
+            st.caption("🔒 *Press **▶️ Turn On Timer** above to unlock submission. This ensures your response time is measured with high precision.*")
+
+        if submit_btn and timer_is_active:
+            raw_latency = time.time() - st.session_state["timer_start_time"]
+            elapsed_rt = round(max(0.5, raw_latency), 2)
+
+            # Stop timer immediately upon submission
+            st.session_state["timer_running"] = False
+            st.session_state["timer_start_time"] = None
+            st.session_state["timer_last_recorded"] = elapsed_rt
+
             is_correct = (user_choice == curr_q["correct_answer"])
 
-            # Record in SQLite DB
+            # Record in SQLite DB with exact stopped response time
             record_interaction(
                 session_id=st.session_state["session_id"],
                 learner_id=st.session_state["learner_id"],
@@ -460,9 +529,8 @@ with tab_study:
                 "error_diagnosis": err_diag,
             }
 
-            # Advance to next question
+            # Advance to next question with timer idle
             st.session_state["current_question_idx"] += 1
-            st.session_state["question_start_time"] = time.time()
             st.session_state["hint_requested"] = False
             st.rerun()
 
@@ -470,9 +538,9 @@ with tab_study:
         if st.session_state["last_feedback"]:
             fb = st.session_state["last_feedback"]
             if fb["is_correct"]:
-                st.success(f"✓ Correct! Responded in {fb['rt']:.1f}s.")
+                st.success(f"✓ Correct! Accurately timed at {fb['rt']:.2f}s (Timer stopped and logged).")
             else:
-                st.error(f"✗ Incorrect. Correct answer was ({fb['correct_answer']}).")
+                st.error(f"✗ Incorrect. Correct answer was ({fb['correct_answer']}). Latency: {fb['rt']:.2f}s (Timer stopped and logged).")
                 if fb.get("error_diagnosis"):
                     diag = fb["error_diagnosis"]
                     st.warning(
