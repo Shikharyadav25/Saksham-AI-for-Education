@@ -1,0 +1,402 @@
+{
+  "skills": [
+    {
+      "id": "arithmetic_integers",
+      "name": "Integer Arithmetic",
+      "description": "Operations with positive and negative integers.",
+      "prerequisites": []
+    },
+    {
+      "id": "order_of_operations",
+      "name": "Order of Operations",
+      "description": "Evaluation of expressions using PEMDAS hierarchy.",
+      "prerequisites": ["arithmetic_integers"]
+    },
+    {
+      "id": "fraction_operations",
+      "name": "Fraction Operations",
+      "description": "Simplification, common denominators, and fraction division.",
+      "prerequisites": ["arithmetic_integers"]
+    },
+    {
+      "id": "linear_equations_1var",
+      "name": "Single-Variable Linear Equations",
+      "description": "Solving linear equations of form ax + b = c.",
+      "prerequisites": ["order_of_operations", "fraction_operations"]
+    },
+    {
+      "id": "linear_inequalities",
+      "name": "Linear Inequalities",
+      "description": "Solving inequalities and handling negative multiplier sign inversions.",
+      "prerequisites": ["linear_equations_1var"]
+    },
+    {
+      "id": "factoring_polynomials",
+      "name": "Polynomial Factoring",
+      "description": "Factoring trinomials and difference of squares.",
+      "prerequisites": ["order_of_operations"]
+    },
+    {
+      "id": "quadratic_equations",
+      "name": "Quadratic Equations",
+      "description": "Solving ax^2 + bx + c = 0 via factoring or quadratic formula.",
+      "prerequisites": ["factoring_polynomials", "linear_equations_1var"]
+    },
+    {
+      "id": "function_notation",
+      "name": "Function Notation & Evaluation",
+      "description": "Evaluating f(x) and composite relationships.",
+      "prerequisites": ["linear_equations_1var"]
+    },
+    {
+      "id": "quadratic_functions_graph",
+      "name": "Quadratic Functions & Graphs",
+      "description": "Determining vertex, axis of symmetry, and parabolic transformations.",
+      "prerequisites": ["quadratic_equations", "function_notation"]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_int_01",
+      "skill_id": "arithmetic_integers",
+      "question_text": "Compute: -14 - (-8) + (-5)",
+      "options": {
+        "A": "-11",
+        "B": "-27",
+        "C": "-1",
+        "D": "11"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Subtracted positive 8 instead of adding 8 from double negative.",
+        "C": "Sign error on final addition of negative 5.",
+        "D": "Neglected negative sign on the initial 14."
+      },
+      "difficulty": 0.25,
+      "discrimination": 1.2
+    },
+    {
+      "id": "q_int_02",
+      "skill_id": "arithmetic_integers",
+      "question_text": "Evaluate: (-3) * (-4) - (-12) / (-2)",
+      "options": {
+        "A": "6",
+        "B": "18",
+        "C": "-18",
+        "D": "-6"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Treated (-12)/(-2) as negative 6 and subtracted it (adding 6).",
+        "C": "Calculated (-3)*(-4) as -12.",
+        "D": "Inverted all signs during evaluation."
+      },
+      "difficulty": 0.35,
+      "discrimination": 1.4
+    },
+    {
+      "id": "q_pemdas_01",
+      "skill_id": "order_of_operations",
+      "question_text": "What is the value of 18 - 3 * (4 - 7)^2?",
+      "options": {
+        "A": "-9",
+        "B": "45",
+        "C": "135",
+        "D": "-45"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Calculated (-3)^2 as -9 and computed 18 - 3 * (-9) = 18 + 27 = 45.",
+        "C": "Subtracted 18 - 3 = 15 first, violating PEMDAS hierarchy.",
+        "D": "Treated 18 - 3*9 as -(18 + 27)."
+      },
+      "difficulty": 0.40,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_pemdas_02",
+      "skill_id": "order_of_operations",
+      "question_text": "Evaluate: 48 / (2 + 6) * 3 - 2^3",
+      "options": {
+        "A": "10",
+        "B": "1",
+        "C": "16",
+        "D": "4"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Calculated 8 * 3 = 24 first and 48 / 24 = 2, then 2 - 8 = -6 or miscomputed powers.",
+        "C": "Added 2^3 instead of subtracting.",
+        "D": "Multiplied denominator by 3 before dividing."
+      },
+      "difficulty": 0.45,
+      "discrimination": 1.3
+    },
+    {
+      "id": "q_frac_01",
+      "skill_id": "fraction_operations",
+      "question_text": "Simplify: (3/4 - 1/6) / (2/3)",
+      "options": {
+        "A": "7/8",
+        "B": "7/18",
+        "C": "5/8",
+        "D": "7/12"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Multiplied by 2/3 instead of multiplying by reciprocal 3/2.",
+        "C": "Common denominator error: subtracted numerators directly (3-1)/(4-6).",
+        "D": "Calculated difference 7/12 but forgot division step."
+      },
+      "difficulty": 0.42,
+      "discrimination": 1.4
+    },
+    {
+      "id": "q_frac_02",
+      "skill_id": "fraction_operations",
+      "question_text": "Compute: (2/5) * (15/8) + (1/4) / (2/3)",
+      "options": {
+        "A": "9/8",
+        "B": "3/4",
+        "C": "11/8",
+        "D": "7/8"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Neglected second term after simplifying first term to 3/4.",
+        "C": "Added fractions without common denominator conversion.",
+        "D": "Inverted wrong fraction in division."
+      },
+      "difficulty": 0.48,
+      "discrimination": 1.3
+    },
+    {
+      "id": "q_lin_01",
+      "skill_id": "linear_equations_1var",
+      "question_text": "Solve for x: 4(2x - 3) = 3x + 13",
+      "options": {
+        "A": "5",
+        "B": "1",
+        "C": "25/11",
+        "D": "-5"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Subtracted 12 instead of adding 12 to 13: 5x = 1.",
+        "C": "Added 3x to 8x instead of subtracting: 11x = 25.",
+        "D": "Sign error on final division."
+      },
+      "difficulty": 0.45,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_lin_02",
+      "skill_id": "linear_equations_1var",
+      "question_text": "Solve for x: (2x - 5)/3 - (x - 1)/2 = 1",
+      "options": {
+        "A": "13",
+        "B": "7",
+        "C": "11",
+        "D": "-13"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Did not distribute negative sign to -1: treated as -(x) - 1.",
+        "C": "Multiplied left side by 6 but forgot to multiply right side by 6.",
+        "D": "Opposite sign during final step."
+      },
+      "difficulty": 0.55,
+      "discrimination": 1.6
+    },
+    {
+      "id": "q_ineq_01",
+      "skill_id": "linear_inequalities",
+      "question_text": "Solve for x: 7 - 3x >= 22",
+      "options": {
+        "A": "x <= -5",
+        "B": "x >= -5",
+        "C": "x <= 5",
+        "D": "x >= 5"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Forgot to reverse inequality sign when dividing by negative 3.",
+        "C": "Sign error on 22 - 7 = 15.",
+        "D": "Forgot inequality flip and also made a sign error."
+      },
+      "difficulty": 0.52,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_ineq_02",
+      "skill_id": "linear_inequalities",
+      "question_text": "Solve for x: -2(x + 4) < 3x - 18",
+      "options": {
+        "A": "x > 2",
+        "B": "x < 2",
+        "C": "x > -2",
+        "D": "x < -2"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Did not flip inequality sign after dividing by negative 5.",
+        "C": "Arithmetic sign error: treated -18 + 8 as +10.",
+        "D": "Combined sign error and direction error."
+      },
+      "difficulty": 0.58,
+      "discrimination": 1.4
+    },
+    {
+      "id": "q_fact_01",
+      "skill_id": "factoring_polynomials",
+      "question_text": "Factor completely: x^2 - 7x + 12",
+      "options": {
+        "A": "(x - 3)(x - 4)",
+        "B": "(x + 3)(x + 4)",
+        "C": "(x - 1)(x - 12)",
+        "D": "(x - 2)(x - 6)"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Chose positive factors giving +7x instead of -7x.",
+        "C": "Chose factors of 12 that sum to 13 instead of 7.",
+        "D": "Chose factors of 12 that sum to 8 instead of 7."
+      },
+      "difficulty": 0.45,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_fact_02",
+      "skill_id": "factoring_polynomials",
+      "question_text": "Factor completely: 2x^2 + 5x - 12",
+      "options": {
+        "A": "(2x - 3)(x + 4)",
+        "B": "(2x + 3)(x - 4)",
+        "C": "(2x - 4)(x + 3)",
+        "D": "(2x + 6)(x - 2)"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Inverted middle sign: produces -5x instead of +5x.",
+        "C": "Factored with common factor remaining inside first term.",
+        "D": "Incorrect decomposition of the quadratic."
+      },
+      "difficulty": 0.60,
+      "discrimination": 1.6
+    },
+    {
+      "id": "q_quad_01",
+      "skill_id": "quadratic_equations",
+      "question_text": "What are the roots of x^2 - 5x - 14 = 0?",
+      "options": {
+        "A": "x = 7 and x = -2",
+        "B": "x = -7 and x = 2",
+        "C": "x = 14 and x = -1",
+        "D": "x = 5 and x = -14"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Factored as (x - 7)(x + 2) but forgot to equate factors to zero, inverting root signs.",
+        "C": "Misidentified factors of 14.",
+        "D": "Extracted coefficients directly without solving."
+      },
+      "difficulty": 0.50,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_quad_02",
+      "skill_id": "quadratic_equations",
+      "question_text": "Find all real solutions to: 3x^2 - 2x - 1 = 0",
+      "options": {
+        "A": "x = 1 and x = -1/3",
+        "B": "x = -1 and x = 1/3",
+        "C": "x = 1/3 and x = 1",
+        "D": "No real solutions"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Sign error on roots from (3x + 1)(x - 1) = 0.",
+        "C": "Incorrect positive sign for the fractional root.",
+        "D": "Miscalculated discriminant b^2 - 4ac as negative."
+      },
+      "difficulty": 0.62,
+      "discrimination": 1.6
+    },
+    {
+      "id": "q_fn_01",
+      "skill_id": "function_notation",
+      "question_text": "If f(x) = 3x^2 - 4x + 1, find f(-2).",
+      "options": {
+        "A": "21",
+        "B": "5",
+        "C": "-3",
+        "D": "13"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Calculated 3(-2)^2 as -12 or miscalculated -4(-2) as -8.",
+        "C": "Squaring sign error: 3(-4) - 8 + 1.",
+        "D": "Omitted linear term."
+      },
+      "difficulty": 0.48,
+      "discrimination": 1.4
+    },
+    {
+      "id": "q_fn_02",
+      "skill_id": "function_notation",
+      "question_text": "If g(x) = 2x + 5 and f(x) = x^2 - 1, find g(f(3)).",
+      "options": {
+        "A": "21",
+        "B": "120",
+        "C": "17",
+        "D": "23"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Computed f(g(3)): g(3)=11, 11^2 - 1 = 120 (reversed composition order).",
+        "C": "Calculated f(3) = 6 instead of 8: 2(6) + 5 = 17.",
+        "D": "Arithmetic error during linear multiplication."
+      },
+      "difficulty": 0.60,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_qgraph_01",
+      "skill_id": "quadratic_functions_graph",
+      "question_text": "What is the vertex of the parabola given by y = 2(x - 3)^2 - 8?",
+      "options": {
+        "A": "(3, -8)",
+        "B": "(-3, -8)",
+        "C": "(3, 8)",
+        "D": "(6, -8)"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Sign error on horizontal shift: treated (x - h) as giving x = -3.",
+        "C": "Sign error on vertical shift.",
+        "D": "Multiplied inner shift by outer coefficient 2."
+      },
+      "difficulty": 0.54,
+      "discrimination": 1.5
+    },
+    {
+      "id": "q_qgraph_02",
+      "skill_id": "quadratic_functions_graph",
+      "question_text": "The parabola y = -x^2 + 6x - 5 opens in which direction and has its vertex at which coordinates?",
+      "options": {
+        "A": "Downwards, vertex at (3, 4)",
+        "B": "Upwards, vertex at (3, 4)",
+        "C": "Downwards, vertex at (-3, -32)",
+        "D": "Upwards, vertex at (-3, 4)"
+      },
+      "correct_answer": "A",
+      "distractor_rationales": {
+        "B": "Ignored negative leading coefficient for orientation.",
+        "C": "Calculated vertex x-coordinate as -b/(2a) = -6/(2) instead of -6/(-2).",
+        "D": "Combined sign and direction mistakes."
+      },
+      "difficulty": 0.65,
+      "discrimination": 1.6
+    }
+  ]
+}
