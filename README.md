@@ -1,4 +1,4 @@
-# Saksham — Adaptive Learning Intelligence Engine (AILE)
+# Sarvagya — Adaptive Learning Intelligence Engine (AILE)
 ## An Intelligent Study Mentor Built on Psychometrics, Cognitive Science & Adaptive State Estimation
 
 > *"A student's score is an observation; it is not the student's state."*
@@ -17,13 +17,13 @@ Prescribing both students *"Review Chapter 4 for 45 minutes"* is personalization
 - **Student A** needs: *"Advance to synthesis; introduce non-standard challenge problems with verification friction."*
 - **Student B** needs: *"Repair prerequisite integer rules &rarr; deliberate practice &rarr; spaced retrieval tomorrow &rarr; return to quadratics."*
 
-**Saksham / AILE** does not assign learners to fixed personality archetypes. Instead, it **continuously estimates a probabilistic latent learning state from behavioral telemetry after every interaction** and optimizes the next best pedagogical action.
+**Sarvagya / AILE** does not assign learners to fixed personality archetypes. Instead, it **continuously estimates a probabilistic latent learning state from behavioral telemetry after every interaction** and optimizes the next best pedagogical action.
 
 ---
 
 ## 2. Core Thesis: Continuous State Estimation vs. Static Classification
 
-Traditional educational claims often rely on fixed, non-empirically supported categorizations (e.g., "visual vs. auditory learners", Pashler et al., 2009). Saksham treats learner attributes as **continuous, probabilistic, time-varying variables**:
+Traditional educational claims often rely on fixed, non-empirically supported categorizations (e.g., "visual vs. auditory learners", Pashler et al., 2009). Sarvagya treats learner attributes as **continuous, probabilistic, time-varying variables**:
 
 $$\mathbf{S}_t = \left[ M_1, \dots, M_K, \; S_1, \dots, S_K, \; \tau, \; a, \; F_t, \; C, \; U \right]$$
 
@@ -41,7 +41,7 @@ $$\mathbf{S}_t = \left[ M_1, \dots, M_K, \; S_1, \dots, S_K, \; \tau, \; a, \; F
 
 ## 3. System Architecture & Workflows
 
-Saksham / AILE is architected around two complementary workflows:
+Sarvagya / AILE is architected around two complementary workflows:
 1. **The Overall Application Flow:** End-to-end data lifecycle connecting user interactions in Streamlit, session state buffers, persistent SQLite storage, cognitive engine dispatch, and real-time UI synchronization.
 2. **The Internal AI Pipeline:** The mathematical and algorithmic processing pipeline that ingests raw telemetry, computes latent psychometric parameters in parallel, traverses the prerequisite graph with a GNN, classifies cognitive errors, and executes Depth-3 POMDP lookahead planning.
 
@@ -63,7 +63,7 @@ flowchart TD
 
     subgraph State ["Session & Persistence Layer"]
         SState["Streamlit Session State - Active learner buffer, rolling observation windows, cached weights"]
-        SQLiteDB[("SQLite Database: saksham.db - User personas, session records, item telemetry logs, skill states")]
+        SQLiteDB[("SQLite Database: sarvagya.sqlite - User personas, session records, item telemetry logs, skill states")]
     end
 
     subgraph Engine ["AILE Cognitive Engine Core"]
@@ -166,24 +166,24 @@ flowchart TD
 ## 4. Key Scientific Modules
 
 ### 4.1. Prerequisite Knowledge Graph & Root-Cause Personalization
-Knowledge is structured as a Directed Acyclic Graph (DAG) across foundational and advanced skills. When a student fails a complex task (e.g., Quadratic Equations), Saksham does not simply conclude the student fails quadratics. It executes **Graph Neural Network (GNN)** message passing across prerequisite edges to isolate the upstream root cause (e.g., negative integer arithmetic rules).
+Knowledge is structured as a Directed Acyclic Graph (DAG) across foundational and advanced skills. When a student fails a complex task (e.g., Quadratic Equations), Sarvagya does not simply conclude the student fails quadratics. It executes **Graph Neural Network (GNN)** message passing across prerequisite edges to isolate the upstream root cause (e.g., negative integer arithmetic rules).
 
 ### 4.2. Speed $\neq$ Intelligence (Hierarchical Response-Time Modeling)
 Raw latency is misleading: taking 30 seconds on a complex factoring problem is fast, while taking 12 seconds on single-digit addition is slow. 
-Saksham normalizes response time against item intensity $\lambda_j$ derived from question difficulty $b_j$:
+Sarvagya normalizes response time against item intensity $\lambda_j$ derived from question difficulty $b_j$:
 
 $$\log T_{ij} \sim \mathcal{N}(\lambda_j - \tau_i, \sigma_j^2)$$
 
 This ensures deliberate, high-mastery students are never penalized for careful reasoning (**Slow $\neq$ Weak**).
 
 ### 4.3. Drift-Diffusion Model (DDM) of Decision Caution
-Using the closed-form EZ-diffusion equations (Wagenmakers et al., 2007), Saksham estimates:
+Using the closed-form EZ-diffusion equations (Wagenmakers et al., 2007), Sarvagya estimates:
 - **Drift Rate ($v$):** Cognitive evidence accumulation rate (true fluency independent of raw speed).
 - **Boundary Separation ($a$):** Decision threshold (identifies impulsive guessing vs. deliberate verification).
 - **Non-Decision Time ($T_{\text{er}}$):** Sensory perception and motor execution time.
 
 ### 4.4. First-Class Scientific Error Taxonomy
-Saksham replaces generic *"Incorrect. Try again"* feedback with six psychometrically grounded error categories:
+Sarvagya replaces generic *"Incorrect. Try again"* feedback with six psychometrically grounded error categories:
 1. **Knowledge Deficit:** Concept genuinely not acquired; foundational prerequisite gap.
 2. **Retrieval Failure:** Previously mastered, but memory decayed over time ($R_k < 0.65$).
 3. **Procedural Error:** Concept understood, but intermediate operational steps misapplied.
@@ -204,13 +204,13 @@ $$a^* = \arg\max_{a} \mathbb{E}\left[ \Delta \text{Mastery} + \Delta \text{Reten
 Candidate actions:
 $$\mathcal{A} = \{ \text{Advance}, \text{Practice}, \text{Repair Prerequisite}, \text{Spaced Retrieval}, \text{Scaffold Worked Example}, \text{Rest Break} \}$$
 
-Saksham evaluates candidate actions using a **Depth-3 Monte Carlo tree lookahead rollout**, completing forward simulations in **0.50ms** for live real-time interaction.
+Sarvagya evaluates candidate actions using a **Depth-3 Monte Carlo tree lookahead rollout**, completing forward simulations in **0.50ms** for live real-time interaction.
 
 ---
 
 ## 5. What Claims to Make vs. What NOT to Claim
 
-| Vulnerable / Unscientific Claim | Defensible Scientific Claim (Used by Saksham) |
+| Vulnerable / Unscientific Claim | Defensible Scientific Claim (Used by Sarvagya) |
 |---|---|
 | *"Our AI detects if you have ADHD or Autism."* | **"The system detects temporary behavioral attention and fatigue states ($F_t$) via Hidden Markov Models."** |
 | *"The AI measures your brainwaves and dopamine."* | **"The system estimates cognitive evidence accumulation and caution parameters using established Drift-Diffusion models."** |

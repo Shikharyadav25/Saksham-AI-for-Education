@@ -38,112 +38,18 @@ seed_sample_learners_if_empty()
 
 # Page configuration
 st.set_page_config(
-    page_title="Saksham — AI Study Mentor",
+    page_title="Sarvagya — AI Study Mentor",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Custom Design System CSS (Modern Focused Editorial aesthetic)
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-    
-    html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    
-    .stApp {
-        background-color: #F8FAFC;
-        color: #0F172A;
-    }
-    
-    /* Header Card */
-    .brand-header {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 12px;
-        padding: 20px 24px;
-        margin-bottom: 24px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    
-    .brand-title {
-        font-size: 26px;
-        font-weight: 700;
-        color: #0F172A;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .brand-subtitle {
-        font-size: 14px;
-        color: #64748B;
-        margin-top: 4px;
-        margin-bottom: 0;
-    }
+# Load custom dark design system stylesheet
+css_path = Path(__file__).resolve().parent / "styles" / "theme.css"
+if css_path.exists():
+    with open(css_path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    /* Metric Card */
-    .metric-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 16px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-    
-    .metric-label {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #64748B;
-        margin-bottom: 6px;
-    }
-    
-    .metric-val {
-        font-size: 22px;
-        font-weight: 700;
-        color: #0F172A;
-    }
-    
-    .metric-sub {
-        font-size: 12px;
-        color: #475569;
-        margin-top: 4px;
-    }
-    
-    /* Cognitive Badge */
-    .badge-tag {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-    .badge-green { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
-    .badge-yellow { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
-    .badge-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
-    .badge-blue { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
-    
-    /* Tree Rollout Node */
-    .rollout-node {
-        background: #FFFFFF;
-        border-left: 4px solid #3B82F6;
-        border-top: 1px solid #E2E8F0;
-        border-right: 1px solid #E2E8F0;
-        border-bottom: 1px solid #E2E8F0;
-        padding: 12px 16px;
-        border-radius: 0 8px 8px 0;
-        margin-bottom: 10px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
 
 
 @st.cache_resource
@@ -239,21 +145,22 @@ with st.sidebar:
         history_cnt = len(get_learner_interactions(current_learner["id"]))
         is_demo = current_learner["id"] == "alice_prereq_gap"
         badge_label = "Demo Reference" if is_demo else "Custom Learner"
-        badge_color = "#1E40AF" if is_demo else "#065F46"
-        badge_bg = "#EFF6FF" if is_demo else "#ECFDF5"
+        badge_color = "#60A5FA" if is_demo else "#34D399"
+        badge_bg = "rgba(59, 130, 246, 0.15)" if is_demo else "rgba(16, 185, 129, 0.15)"
+        badge_border = "rgba(59, 130, 246, 0.3)" if is_demo else "rgba(16, 185, 129, 0.3)"
         st.markdown(
             f"""
-            <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:12px 14px; margin: 8px 0 16px 0;">
+            <div class="profile-card">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-weight:700; font-size:14px; color:#0F172A;">{current_learner['name']}</span>
-                    <span style="font-size:11px; background:{badge_bg}; color:{badge_color}; padding:2px 8px; border-radius:4px; font-weight:600;">{badge_label}</span>
+                    <span class="profile-name">{current_learner['name']}</span>
+                    <span class="profile-badge" style="background:{badge_bg}; color:{badge_color}; border:1px solid {badge_border};">{badge_label}</span>
                 </div>
-                <div style="font-size:12px; color:#64748B; margin-top:5px;">
-                    Age: <b style="color:#0F172A;">{current_learner.get('age', 'N/A')}</b> &nbsp;|&nbsp; 
-                    Gender: <b style="color:#0F172A;">{current_learner.get('gender', 'N/A')}</b>
+                <div class="profile-meta">
+                    Age: <b>{current_learner.get('age', 'N/A')}</b> &nbsp;|&nbsp; 
+                    Gender: <b>{current_learner.get('gender', 'N/A')}</b>
                 </div>
-                <div style="font-size:12px; color:#475569; margin-top:3px;">
-                    Interactions Logged: <b style="color:#0F172A;">{history_cnt}</b>
+                <div class="profile-meta">
+                    Interactions Logged: <b>{history_cnt}</b>
                 </div>
             </div>
             """,
@@ -314,7 +221,7 @@ with st.sidebar:
 st.markdown(
     """
     <div class="brand-header">
-        <h1 class="brand-title">🎓 Saksham — AI Study Mentor</h1>
+        <h1 class="brand-title">🎓 Sarvagya — AI Study Mentor</h1>
         <p class="brand-subtitle">Empowering learners through Deep Knowledge Tracing, EZ-Diffusion, Prerequisite GNN, and POMDP multi-step lookahead.</p>
     </div>
     """,
@@ -372,21 +279,99 @@ tab_study, tab_telemetry, tab_policy, tab_simulation = st.tabs([
 # TAB 1: ACTIVE STUDY SESSION
 # ---------------------------------------------------------
 with tab_study:
-    # Pick next question based on POMDP recommendation or current queue
-    q_idx = st.session_state["current_question_idx"] % len(questions)
-    curr_q = questions[q_idx]
+    # ---------------------------------------------------------
+    # Study Session Scope & Focus (Subject & Topic Selection)
+    # ---------------------------------------------------------
+    subjects_list = ["All Subjects (Adaptive Track)"] + graph.get_subjects()
+    if "selected_subject" not in st.session_state or st.session_state["selected_subject"] not in subjects_list:
+        st.session_state["selected_subject"] = subjects_list[0]
+
+    col_subj_sel, col_top_sel = st.columns(2)
+    with col_subj_sel:
+        chosen_subject = st.selectbox(
+            "📚 Choose Study Subject:",
+            options=subjects_list,
+            index=subjects_list.index(st.session_state["selected_subject"]),
+            key="session_subject_picker",
+            help="Select a core subject domain to focus this study session",
+        )
+
+    # Determine available topics for chosen subject
+    if chosen_subject == "All Subjects (Adaptive Track)":
+        subject_skills = [graph.skill_metadata[sid] for sid in graph.skill_ids]
+    else:
+        subject_skills = graph.get_skills_by_subject(chosen_subject)
+
+    topic_keys = ["all"] + [s["id"] for s in subject_skills]
+
+    def format_topic_option(tid: str) -> str:
+        if tid == "all":
+            return "🎯 All Topics (Comprehensive Practice)"
+        return f"🎯 {graph.skill_metadata.get(tid, {}).get('name', tid)}"
+
+    if "selected_topic" not in st.session_state or st.session_state["selected_topic"] not in topic_keys:
+        st.session_state["selected_topic"] = topic_keys[0]
+
+    with col_top_sel:
+        chosen_topic = st.selectbox(
+            "🎯 Choose Topic to Test Upon:",
+            options=topic_keys,
+            format_func=format_topic_option,
+            index=topic_keys.index(st.session_state["selected_topic"]) if st.session_state["selected_topic"] in topic_keys else 0,
+            key="session_topic_picker",
+            help="Select a specific concept or topic to be tested on",
+        )
+
+    # React to user changes by resetting session item pointer and timers
+    if chosen_subject != st.session_state["selected_subject"] or chosen_topic != st.session_state["selected_topic"]:
+        st.session_state["selected_subject"] = chosen_subject
+        st.session_state["selected_topic"] = chosen_topic
+        st.session_state["current_question_idx"] = 0
+        st.session_state["timer_running"] = False
+        st.session_state["timer_start_time"] = None
+        st.session_state["hint_requested"] = False
+        st.session_state["last_feedback"] = None
+        st.rerun()
+
+    # Filter calibrated questions pool to match student selection
+    if chosen_topic != "all":
+        session_questions = [q for q in questions if q["skill_id"] == chosen_topic]
+    elif chosen_subject != "All Subjects (Adaptive Track)":
+        sub_sids = {s["id"] for s in subject_skills}
+        session_questions = [q for q in questions if q["skill_id"] in sub_sids]
+    else:
+        session_questions = questions
+
+    if not session_questions:
+        session_questions = questions
+
+    q_idx = st.session_state["current_question_idx"] % len(session_questions)
+    curr_q = session_questions[q_idx]
     skill_id = curr_q["skill_id"]
     skill_name = graph.skill_metadata.get(skill_id, {}).get("name", skill_id)
+    skill_subject = graph.skill_metadata.get(skill_id, {}).get("subject", "General Mathematics")
 
     col_q, col_sidebar_info = st.columns([7, 3])
 
     with col_q:
-        st.markdown(f"#### Skill Focus: `{skill_name}`")
         st.markdown(
             f"""
-            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 24px; margin-bottom: 16px;">
-                <span style="font-size: 13px; color: #64748B; font-weight: 600;">Question #{q_idx + 1}</span>
-                <p style="font-size: 18px; font-weight: 600; color: #0F172A; margin-top: 8px;">{curr_q['question_text']}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                <span style="font-size:13px; color:var(--accent-blue); font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">
+                    {skill_subject} &nbsp;•&nbsp; {skill_name}
+                </span>
+                <span style="font-size:12px; color:var(--text-muted); background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:4px;">
+                    Question #{q_idx + 1} of {len(session_questions)}
+                </span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f"""
+            <div class="question-card">
+                <span class="question-number">Question #{q_idx + 1}</span>
+                <p class="question-text">{curr_q['question_text']}</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -400,11 +385,11 @@ with tab_study:
             if timer_is_active:
                 st.markdown(
                     """
-                    <div style="background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                    <div class="timer-card timer-card-active">
                         <span style="font-size: 20px;">⏱️</span>
                         <div>
-                            <div style="font-weight: 700; color: #065F46; font-size: 13px;">TIMER RUNNING • DELIBERATION ACTIVE</div>
-                            <div style="font-size: 12px; color: #047857;">Clock is actively counting. Solve the problem and submit below to stop the timer.</div>
+                            <div class="timer-title-active">TIMER RUNNING • DELIBERATION ACTIVE</div>
+                            <div class="timer-desc-active">Clock is actively counting. Solve the problem and submit below to stop the timer.</div>
                         </div>
                     </div>
                     """,
@@ -413,11 +398,11 @@ with tab_study:
             else:
                 st.markdown(
                     """
-                    <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                    <div class="timer-card timer-card-idle">
                         <span style="font-size: 20px;">⏸️</span>
                         <div>
-                            <div style="font-weight: 700; color: #475569; font-size: 13px;">TIMER STOPPED / NOT STARTED</div>
-                            <div style="font-size: 12px; color: #64748B;">Press <b>Turn On Timer</b> when ready to begin solving for accurate latency tracking.</div>
+                            <div class="timer-title-idle">TIMER STOPPED / NOT STARTED</div>
+                            <div class="timer-desc-idle">Press <b>Turn On Timer</b> when ready to begin solving for accurate latency tracking.</div>
                         </div>
                     </div>
                     """,
@@ -582,6 +567,11 @@ with tab_study:
         st.markdown(
             f"""
             <div class="metric-card">
+                <div class="metric-label">Active Subject</div>
+                <div class="metric-val" style="font-size:16px; line-height:1.3;">{skill_subject}</div>
+                <div class="metric-sub">Focus: {skill_name}</div>
+            </div>
+            <div class="metric-card" style="margin-top: 12px;">
                 <div class="metric-label">Mastery Estimate ({mastery_est.active_estimator})</div>
                 <div class="metric-val">{current_mastery_means.get(skill_id, 0.5):.0%}</div>
                 <div class="metric-sub">Prerequisites: {len(graph.get_prerequisites(skill_id))}</div>
@@ -607,12 +597,12 @@ with tab_telemetry:
     st.markdown("### Latent Cognitive State Telemetry")
     st.markdown(
         """
-        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;">
-            <div style="font-size: 13px; font-weight: 700; color: #1E293B; text-transform: uppercase; letter-spacing: 0.05em;">
+        <div class="telemetry-banner">
+            <div class="telemetry-banner-title">
                 Continuous Latent Learner State: S_t = [M_1..M_K, S_1..S_K, &tau;, a, F_t, C, U]
             </div>
-            <p style="font-size: 13px; color: #64748B; margin: 6px 0 0 0;">
-                <b>Core Principle:</b> <i>"A student's score is an observation; it is not the student's state."</i> Saksham does not assign students to fixed "learning styles" or permanent labels. It continuously updates a probabilistic mental model across mastery, memory decay, hierarchical processing speed (&tau;), decision caution (a), fatigue (F_t), and metacognitive calibration (C).
+            <p class="telemetry-banner-desc">
+                <b>Core Principle:</b> <i>"A student's score is an observation; it is not the student's state."</i> Sarvagya does not assign students to fixed "learning styles" or permanent labels. It continuously updates a probabilistic mental model across mastery, memory decay, hierarchical processing speed (&tau;), decision caution (a), fatigue (F_t), and metacognitive calibration (C).
             </p>
         </div>
         """,
@@ -706,6 +696,7 @@ with tab_telemetry:
 # ---------------------------------------------------------
 # TAB 3: PEDAGOGICAL TRANSPARENCY ("Why this action?")
 # ---------------------------------------------------------
+with tab_policy:
     # 1. Run GNN prerequisite propagation and root cause isolation
     _, rc_diagnosed, attn_map = res["gnn"].propagate_and_trace_root_cause(
         graph, current_mastery_means, current_mastery_vars, struggling_skill=skill_id
@@ -736,10 +727,10 @@ with tab_telemetry:
             f"""
             <div class="rollout-node" style="border-left-color: {color};">
                 <span style="font-size: 11px; font-weight: 700; color: {color};">{badge}</span>
-                <div style="font-weight: 600; font-size: 15px; color: #0F172A; margin: 4px 0;">
+                <div class="rollout-node-title">
                     {node['description']}
                 </div>
-                <div style="font-size: 13px; color: #475569;">
+                <div class="rollout-node-sub">
                     Immediate Utility: <b>{node['immediate_utility']}</b> &nbsp;|&nbsp; 
                     3-Step Expected Rollout Utility: <b>{node.get('expected_rollout_score', 'N/A')}</b>
                 </div>

@@ -1,5 +1,5 @@
 """
-Script to generate Saksham_AILE_10_Learner_Profiles_Guide.docx
+Script to generate Sarvagya_AILE_10_Learner_Profiles_Guide.docx
 Produces a comprehensive reference document with 10 distinct, psychometrically
 grounded learner profiles, their exact inputs, engine calculations, and manual test instructions.
 """
@@ -13,7 +13,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
 
-OUTPUT_FILE = Path(__file__).resolve().parent.parent / "Saksham_AILE_10_Learner_Profiles_Guide.docx"
+OUTPUT_FILE = Path(__file__).resolve().parent.parent / "Sarvagya_AILE_10_Learner_Profiles_Guide.docx"
 
 
 def set_cell_background(cell, fill_hex):
@@ -207,7 +207,7 @@ def generate_document():
     title_p = doc.add_paragraph()
     title_p.paragraph_format.space_before = Pt(0)
     title_p.paragraph_format.space_after = Pt(2)
-    run_title = title_p.add_run("Saksham — Adaptive Learning Intelligence Engine (AILE)")
+    run_title = title_p.add_run("Sarvagya — Adaptive Learning Intelligence Engine (AILE)")
     run_title.font.name = "Calibri"
     run_title.font.size = Pt(22)
     run_title.font.bold = True
@@ -226,7 +226,7 @@ def generate_document():
         title="EXECUTIVE DESIGN PRINCIPLE: STATE ESTIMATION OVER STATIC LABELS",
         text=(
             "Traditional adaptive learning engines make the fatal error of assigning students to fixed 'learning styles' "
-            "or clinical archetypes. In contrast, Saksham models the learner as a dynamic, continuous probabilistic state vector:\n\n"
+            "or clinical archetypes. In contrast, Sarvagya models the learner as a dynamic, continuous probabilistic state vector:\n\n"
             "S_t = [M_1..M_K, S_1..S_K, τ, a, F_t, C, U]\n\n"
             "Where M_k is knowledge mastery (DKT LSTM/Bayesian), S_k is memory stability (Ebbinghaus decay), "
             "τ is processing speed normalized against question difficulty (Hierarchical RT model), a is response caution "
@@ -234,7 +234,7 @@ def generate_document():
             "and U is parameter uncertainty.\n\n"
             "This document defines 10 distinct, mathematically grounded learner profiles with their exact input telemetry, "
             "the engine's latent state calculations, error diagnoses, POMDP lookahead decisions, and step-by-step instructions "
-            "to manually replicate them inside the Saksham Streamlit application."
+            "to manually replicate them inside the Sarvagya Streamlit application."
         ),
         bg_hex="F8FAFC",
         border_hex="0F172A",
@@ -251,7 +251,7 @@ def generate_document():
         context=(
             "The student is enrolled in quadratic equations. They understand the conceptual idea of finding roots and "
             "factoring, but consistently fail quadratic equation problems. Standard LMS systems mark quadratic equations as "
-            "'unmastered' and deliver repeated quadratic practice. Saksham traces the error 3 hops upstream in the prerequisite DAG, "
+            "'unmastered' and deliver repeated quadratic practice. Sarvagya traces the error 3 hops upstream in the prerequisite DAG, "
             "discovering that the genuine root cause is double-negative integer arithmetic."
         ),
         trials=[
@@ -343,7 +343,7 @@ def generate_document():
         context=(
             "A conventional EdTech application with a crude 'time bonus' or 'speed scoring' would penalize this learner as 'slow'. "
             "However, this student takes 20–35 seconds per question because they systematically write out intermediate proofs and verify "
-            "roots. Their accuracy is 92%. Saksham's hierarchical response time model separates processing speed from intelligence."
+            "roots. Their accuracy is 92%. Sarvagya's hierarchical response time model separates processing speed from intelligence."
         ),
         trials=[
             ("1", "q_int_01", "arithmetic_integers", "A", "Correct", "18.5", "85%"),
@@ -433,7 +433,7 @@ def generate_document():
         subtitle="High Initial Competence with Elapsed Retention Half-Life",
         context=(
             "This student achieved 92% mastery on polynomial factoring 10 days ago. However, memory decay follows Ebbinghaus's "
-            "exponential curve R(Δt) = exp(-Δt / S). While a naive system assumes the skill is 'checked off', Saksham's memory "
+            "exponential curve R(Δt) = exp(-Δt / S). While a naive system assumes the skill is 'checked off', Sarvagya's memory "
             "scheduler flags that retrievability has fallen below the critical 0.65 threshold, necessitating spaced retrieval."
         ),
         trials=[
@@ -559,7 +559,7 @@ def generate_document():
         context=(
             "A high-performing student with 94% mastery across all prerequisite skills makes an isolated arithmetic subtraction error "
             "on a single routine trial. In rigid rule-based systems, a single error immediately demotes the student back to remedial modules. "
-            "Saksham's Bayesian prior and DKT sequence modeling absorb transient slips without disrupting curriculum momentum."
+            "Sarvagya's Bayesian prior and DKT sequence modeling absorb transient slips without disrupting curriculum momentum."
         ),
         trials=[
             ("1", "q_int_01", "arithmetic_integers", "A", "Correct", "7.0", "95%"),

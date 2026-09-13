@@ -29,7 +29,11 @@ class SkillGraph:
             self.skill_to_index[sid] = idx
             self.index_to_skill[idx] = sid
             self.skill_metadata[sid] = skill_info
-            self.graph.add_node(sid, name=skill_info.get("name", sid))
+            self.graph.add_node(
+                sid,
+                name=skill_info.get("name", sid),
+                subject=skill_info.get("subject", "General Mathematics"),
+            )
 
         for skill_info in skills:
             sid = skill_info["id"]
@@ -45,6 +49,20 @@ class SkillGraph:
     @property
     def skill_ids(self) -> List[str]:
         return list(self.skill_to_index.keys())
+
+    def get_subjects(self) -> List[str]:
+        """Returns ordered list of unique major subjects present in the curriculum."""
+        subjects = []
+        for s in self.skill_metadata.values():
+            subj = s.get("subject", "General Mathematics")
+            if subj not in subjects:
+                subjects.append(subj)
+        return subjects
+
+    def get_skills_by_subject(self, subject: str) -> List[Dict[str, Any]]:
+        """Returns metadata of skills belonging to the specified subject."""
+        return [meta for meta in self.skill_metadata.values() if meta.get("subject") == subject]
+
 
     def get_prerequisites(self, skill_id: str) -> List[str]:
         """Immediate parents in the prerequisite graph."""

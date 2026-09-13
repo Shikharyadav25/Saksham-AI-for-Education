@@ -24,7 +24,7 @@ from aile.simulator import StudentSimulator
 
 def run_all_diagnostics():
     print("=" * 60)
-    print("SAKSHAM COGNITIVE ENGINE DIAGNOSTIC BENCHMARKS")
+    print("SARVAGYA COGNITIVE ENGINE DIAGNOSTIC BENCHMARKS")
     print("=" * 60)
 
     graph = SkillGraph()

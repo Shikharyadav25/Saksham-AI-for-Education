@@ -1,4 +1,4 @@
-# Architecture Decision Records (ADR) — Saksham: AI Study Mentor
+# Architecture Decision Records (ADR) — Sarvagya: AI Study Mentor
 
 ## ADR 001: Deep Knowledge Tracing (DKT) with Bayesian Cold-Start Fallback
 - **Context:** Modeling knowledge mastery dynamics requires capturing sequential dependencies in learning trajectories.

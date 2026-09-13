@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Unified Dark Canvas Tone (Identical for Main & Sidebar) */
+    --bg-base: #0B0F17;
+    --bg-surface: #151C28;
+    --bg-surface-elevated: #1A2332;
+    --bg-surface-hover: #222D40;
+    
+    /* Subtle Borders & Dividers */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-muted: rgba(255, 255, 255, 0.14);
+    --border-focus: rgba(59, 130, 246, 0.5);
+    
+    /* Typography Palette (Anti-Straining Off-Whites) */
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    
+    /* Vibrant Functional Accents */
+    --accent-blue: #3B82F6;
+    --accent-blue-hover: #2563EB;
+    --accent-blue-subtle: rgba(59, 130, 246, 0.15);
+    --accent-green: #10B981;
+    --accent-green-subtle: rgba(16, 185, 129, 0.15);
+    --accent-yellow: #F59E0B;
+    --accent-yellow-subtle: rgba(245, 158, 11, 0.15);
+    --accent-red: #EF4444;
+    --accent-red-subtle: rgba(239, 68, 68, 0.15);
+    
+    /* Diffused Depth & Geometry */
+    --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+}
+
+html, body, [class*="css"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* -------------------------------------------------------------
+   UNIFIED BACKGROUND (Entire App + Sidebar + Containers)
+------------------------------------------------------------- */
+html, body,
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewContainer"] > .main,
+section.main,
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stBottom"],
+section[data-testid="stSidebar"],
+[data-testid="stSidebarContent"],
+[data-testid="stSidebar"] > div:first-child {
+    background-color: var(--bg-base) !important;
+    background: var(--bg-base) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Subtle border separating sidebar from main content */
+section[data-testid="stSidebar"] {
+    border-right: 1px solid var(--border-subtle) !important;
+}
+
+/* -------------------------------------------------------------
+   GLOBAL TYPOGRAPHY IN DARK CANVAS
+------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6, p, span, label, div {
+    color: var(--text-primary);
+}
+
+.stMarkdown p {
+    color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------
+   CARDS & STRUCTURAL COMPONENTS
+------------------------------------------------------------- */
+/* Header Card */
+.brand-header {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.brand-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary) !important;
+    margin-top: 6px;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* Metric Card */
+.metric-card {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-1px);
+    border-color: var(--border-focus) !important;
+}
+
+.metric-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary) !important;
+    margin-bottom: 6px;
+}
+
+.metric-val {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+}
+
+.metric-sub {
+    font-size: 12px;
+    color: var(--text-muted) !important;
+    margin-top: 4px;
+}
+
+/* Active Profile Card (Sidebar) */
+.profile-card {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin: 8px 0 16px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.profile-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-primary) !important;
+}
+
+.profile-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+.profile-meta {
+    font-size: 12px;
+    color: var(--text-secondary) !important;
+    margin-top: 5px;
+}
+
+.profile-meta b {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+/* Question Focus Card */
+.question-card {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+}
+
+.question-number {
+    font-size: 12px;
+    color: var(--accent-blue) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.question-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+    margin-top: 10px;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* Timer Status Container */
+.timer-card {
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.timer-card-active {
+    background: var(--accent-green-subtle) !important;
+    border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+.timer-title-active {
+    font-weight: 700;
+    color: #34D399 !important;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+}
+
+.timer-desc-active {
+    font-size: 12px;
+    color: #A7F3D0 !important;
+    margin-top: 2px;
+}
+
+.timer-card-idle {
+    background: rgba(148, 163, 184, 0.06) !important;
+    border: 1px solid var(--border-subtle) !important;
+}
+
+.timer-title-idle {
+    font-weight: 700;
+    color: var(--text-secondary) !important;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+}
+
+.timer-desc-idle {
+    font-size: 12px;
+    color: var(--text-muted) !important;
+    margin-top: 2px;
+}
+
+/* Cognitive Telemetry Banner */
+.telemetry-banner {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+}
+
+.telemetry-banner-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.telemetry-banner-desc {
+    font-size: 13px;
+    color: var(--text-secondary) !important;
+    margin: 8px 0 0 0;
+    line-height: 1.6;
+}
+
+/* Tree Rollout Node */
+.rollout-node {
+    background: var(--bg-surface) !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    border-right: 1px solid var(--border-subtle) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+    padding: 14px 18px;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin-bottom: 12px;
+}
+
+.rollout-node-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary) !important;
+    margin: 4px 0;
+}
+
+.rollout-node-sub {
+    font-size: 13px;
+    color: var(--text-secondary) !important;
+}
+
+.rollout-node-sub b {
+    color: var(--text-primary) !important;
+}
+
+/* Badges */
+.badge-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-green {
+    background: var(--accent-green-subtle) !important;
+    color: #34D399 !important;
+    border: 1px solid rgba(52, 211, 153, 0.3) !important;
+}
+
+.badge-yellow {
+    background: var(--accent-yellow-subtle) !important;
+    color: #FBBF24 !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
+}
+
+.badge-red {
+    background: var(--accent-red-subtle) !important;
+    color: #F87171 !important;
+    border: 1px solid rgba(248, 113, 113, 0.3) !important;
+}
+
+.badge-blue {
+    background: var(--accent-blue-subtle) !important;
+    color: #60A5FA !important;
+    border: 1px solid rgba(96, 165, 250, 0.3) !important;
+}
+
+/* -------------------------------------------------------------
+   STREAMLIT NATIVE WIDGET OVERRIDES (Dark & Blue Styling)
+------------------------------------------------------------- */
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    gap: 12px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: var(--text-secondary) !important;
+    background-color: transparent !important;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 6px 6px 0 0;
+}
+
+.stTabs [aria-selected="true"] {
+    color: var(--accent-blue) !important;
+    border-bottom: 2px solid var(--accent-blue) !important;
+    font-weight: 600;
+}
+
+/* Form Inputs, Selects, Number inputs */
+div[data-baseweb="input"] > div,
+div[data-baseweb="select"] > div,
+div[data-baseweb="base-input"],
+div[data-baseweb="input"] input {
+    background-color: var(--bg-surface-elevated) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-subtle) !important;
+}
+
+/* Buttons */
+.stButton > button,
+button[kind="primary"],
+button[kind="secondary"] {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+button[kind="primary"] {
+    background-color: var(--accent-blue) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+}
+
+button[kind="primary"]:hover {
+    background-color: var(--accent-blue-hover) !important;
+    transform: translateY(-1px);
+}
+
+button[kind="secondary"] {
+    background-color: var(--bg-surface-elevated) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+}
+
+button[kind="secondary"]:hover {
+    background-color: var(--bg-surface-hover) !important;
+    transform: translateY(-1px);
+}
+
+/* Expanders */
+div[data-testid="stExpander"] {
+    background-color: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+}
+
+div[data-testid="stExpander"] summary {
+    color: var(--text-primary) !important;
+}
+
+/* Radio Buttons */
+div[data-testid="stRadio"] label {
+    color: var(--text-primary) !important;
+}
+
+/* Divider Cleanliness */
+hr {
+    border: none !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    margin: 24px 0 !important;
+}
+
+/* Custom Scrollbar & Highlight */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+::selection {
+    background: rgba(59, 130, 246, 0.35);
+    color: var(--text-primary);
+}

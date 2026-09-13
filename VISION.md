@@ -1,13 +1,13 @@
-# Saksham — AI Study Mentor
+# Sarvagya — AI Study Mentor
 ## Architectural & Product Vision Document (v2 Specification)
 
 ---
 
 ## 1. Executive Summary & Mission
 
-**Saksham** (सक्षम — *capable, empowered*) is an AI study mentor engineered for educational equity. Most conventional adaptive learning systems rely on shallow heuristic rules or generic chatbot responses that cannot accurately infer a learner's latent cognitive state. 
+**Sarvagya** (सर्वज्ञ — *all-knowing, holistic mentor*) is an AI study mentor engineered for educational equity. Most conventional adaptive learning systems rely on shallow heuristic rules or generic chatbot responses that cannot accurately infer a learner's latent cognitive state. 
 
-Saksham bridges psychometrics, cognitive science, and deep learning to construct an authentic mental model of each student. By combining **Deep Knowledge Tracing (DKT)**, **Graph Neural Networks (GNN)** on prerequisite skill graphs, **Drift-Diffusion Models (DDM)** of decision dynamics, **Hidden Markov Models (HMM)** for fatigue tracking, and **POMDP-style lookahead planning**, Saksham acts as an empathetic, transparent, and mathematically rigorous study mentor.
+Sarvagya bridges psychometrics, cognitive science, and deep learning to construct an authentic mental model of each student. By combining **Deep Knowledge Tracing (DKT)**, **Graph Neural Networks (GNN)** on prerequisite skill graphs, **Drift-Diffusion Models (DDM)** of decision dynamics, **Hidden Markov Models (HMM)** for fatigue tracking, and **POMDP-style lookahead planning**, Sarvagya acts as an empathetic, transparent, and mathematically rigorous study mentor.
 
 ### Core Philosophy
 1. **Cognitive Fidelity:** Model knowledge mastery, evidence-accumulation speed, caution, and cognitive fatigue separately rather than collapsing everything into a single score.
@@ -19,7 +19,7 @@ Saksham bridges psychometrics, cognitive science, and deep learning to construct
 
 ## 2. Theoretical & Cognitive Modeling Stack
 
-Saksham's architecture replaces ad-hoc heuristics with established cognitive models and machine learning formulations:
+Sarvagya's architecture replaces ad-hoc heuristics with established cognitive models and machine learning formulations:
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -71,7 +71,7 @@ Saksham's architecture replaces ad-hoc heuristics with established cognitive mod
 - **Root-Cause Discovery:** When performance falters on downstream skills, message passing propagates uncertainty-weighted belief upstream. The prerequisite ancestor with the lowest post-propagation belief is isolated as the genuine knowledge gap, eliminating naive static thresholding.
 
 ### 2.3. Latency & Caution: EZ-Diffusion Model (DDM)
-- **Cognitive Dynamics (`ddm_ez.py`):** Instead of raw response times or crude $z$-scores, Saksham implements the closed-form EZ-diffusion model (Wagenmakers, van der Maas & Grasman, 2007) across rolling windows ($\ge 15$ trials):
+- **Cognitive Dynamics (`ddm_ez.py`):** Instead of raw response times or crude $z$-scores, Sarvagya implements the closed-form EZ-diffusion model (Wagenmakers, van der Maas & Grasman, 2007) across rolling windows ($\ge 15$ trials):
   - **Drift Rate ($v$):** Rate of evidence accumulation, measuring true fluency and cognitive speed independent of caution.
   - **Boundary Separation ($a$):** Distance between decision thresholds, measuring learner caution versus impulsivity.
   - **Non-Decision Time ($T_{\text{er}}$):** Latency attributed to reading comprehension and motor execution (typing/clicking), separate from internal reasoning.
@@ -144,7 +144,7 @@ Saksham Edu4Good/
 
 ## 4. User Experience & Product Interfaces
 
-Saksham delivers an intuitive, empowering interface with three core operational views:
+Sarvagya delivers an intuitive, empowering interface with three core operational views:
 
 ### View 1: Active Study Session (The Student Workspace)
 - **Clean Socratic Interface:** Distraction-free question presentation with adaptive difficulty.

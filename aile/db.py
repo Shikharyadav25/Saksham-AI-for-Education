@@ -5,7 +5,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Generator, List, Optional
 
-DEFAULT_DB_PATH = Path(__file__).resolve().parent.parent / "saksham.sqlite"
+DEFAULT_DB_PATH = Path(__file__).resolve().parent.parent / "sarvagya.sqlite"
+
+# Preserve existing records by copying legacy db if new db path does not exist
+_legacy_db = Path(__file__).resolve().parent.parent / "saksham.sqlite"
+if not DEFAULT_DB_PATH.exists() and _legacy_db.exists():
+    import shutil
+    shutil.copy2(_legacy_db, DEFAULT_DB_PATH)
 
 
 @contextmanager

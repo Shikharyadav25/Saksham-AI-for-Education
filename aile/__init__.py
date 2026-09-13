@@ -1,5 +1,5 @@
 """
-Saksham — AI Study Mentor
+Sarvagya — AI Study Mentor
 Core cognitive modeling, psychometrics, and pedagogical planning package.
 """
 
